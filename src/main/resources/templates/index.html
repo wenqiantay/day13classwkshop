@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+</head>
+<body>
+    <h1>To-do List</h1>
+   <form method="POST" action="/todolist/obj" data-th-object="${task}">
+    <table>
+        <tr>
+            <td>Task name:</td>
+            <td>
+                <input type="text" data-th-field="*{taskName}">
+            </td>
+        </tr>
+        <tr>
+            <td>Priority:</td>
+            <td>
+                <select id="priority" data-th-field="*{priority}">
+                    <option value="low">Low</option>
+                    <option value="med">Med</option>
+                    <option value="high">High</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Completed by:</td>
+            <td>
+                <input type="date" data-th-field="*{date}" min="datetime-local">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Add</button>
+            </td>
+        </tr>
+    </table>
+    </form>
+    <table data-th-if="${#lists.isEmpty(tasklist)}">
+        <tr>
+            <td>Looks Like you are free !</td>
+        </tr>
+    </table>
+    <table border="1">
+        <tr>
+            <th>Task</th>
+            <th>Priority</th>
+            <th>Completed by</th>
+        </tr>
+        <tr data-th-each="t:${tasklist}">
+            <td data-th-text="${t.taskName}"></td>
+            <td data-th-text="${t.priority}"></td>
+            <td data-th-text="${t.date}"></td>
+        </tr>
+    </table>
+    <form method="POST" action="/exit">
+        <button type="submit">Save</button>
+
+    </form>
+
+</body>
+</html>
